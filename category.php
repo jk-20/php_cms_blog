@@ -17,38 +17,44 @@
         
         $post_cat_id = $_GET['category'];
         
-   if(isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin'){
+   if(is_login(){
             
-    $query = "SELECT * FROM post WHERE post_cat_id = $post_cat_id ";
+$stmt1 = mysqli_prepare($connection,
+"SELECT post_id,post_author,post_title,post_date,post_img,post_content FROM post WHERE post_cat_id = ?");
             
         }else{
             
+$stmt2 = mysqli_prepare($connection,"SELECT post_id,post_author,post_title,post_date,post_img,post_content                                      FROM post WHERE post_cat_id = '?' AND post_status = ? ");
+      
+                         $published = 'published';
+        }
+        if(isset($stmt1)){
+            mysqli_stmt_bind_param($stmt1,"i",$post_cat_id);
+            mysqli_stmt_execute($stmt1);
+     mysqli_stmt_bind_result($stmt1,$post_id,$post_author,$post_title,$post_date,$post_img,$post_content);
+            $stmt = $stmt1;
             
-    $query = "SELECT * FROM post WHERE post_cat_id = $post_cat_id AND post_status = 'published' ";
+        }else{
+            
+    mysqli_stmt_bind_param($stmt2,"is",$post_cat_id,$published);
+            mysqli_stmt_execute($stmt2);
+     mysqli_stmt_bind_result($stmt2,$post_id,$post_author,$post_title,$post_date,$post_img,$post_content);
+            $stmt = $stmt2;
         }
     
     
 
     $select_post = mysqli_query($connection,$query);
         
-        if(mysqli_num_rows($select_post) < 1){
+        if(mysqli_num_rows($stmt) === 0){
             
              echo "<h5 class='text-center'>NO POST AVAILABLE</h5> ";
-        }else{
+        }
         
         
-    while($row=mysqli_fetch_assoc($select_post)){
+    while(mysqli_stmt_fetch($stmt)):
                                  
-    $post_id = $row['post_id'];        
-    $post_author = $row['post_author'];
-    $post_title = $row['post_title'];  
-    $post_cat_id = $row['post_cat_id'];  
-    $post_date = $row['post_date'];          
-    $post_img = $row['post_img'];          
-    $post_content = $row['post_content'];          
-    $post_tag = $row['post_tag'];          
-    $post_comment_count = $row['post_comment_count'];          
-    $post_status = $row['post_status'];          
+              
         
         ?>
         <h2><?php echo $post_title ?></h2>
@@ -77,7 +83,7 @@
              
                 
                 </div>
-                 <?php } }
+                 <?php endwhile;
                }else{
         
         header("Location:index.php");
