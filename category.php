@@ -17,28 +17,28 @@
         
         $post_cat_id = $_GET['category'];
         
-   if(is_login(){
+   if(isset($_SESSION['user_role'])=='admin'){
             
 $stmt1 = mysqli_prepare($connection,
-"SELECT post_id,post_author,post_title,post_date,post_img,post_content FROM post WHERE post_cat_id = ?");
-            
-        }else{
-            
-$stmt2 = mysqli_prepare($connection,"SELECT post_id,post_author,post_title,post_date,post_img,post_content                                      FROM post WHERE post_cat_id = '?' AND post_status = ? ");
+"SELECT post_id,post_author,post_title,post_date,post_img,post_content FROM post WHERE post_cat_id = ? ");
+}
+else{        
+$stmt2 = mysqli_prepare($connection,"SELECT post_id,post_author,post_title,post_date,post_img,post_content                                      FROM post WHERE post_cat_id = ? AND post_status = ? ");
       
                          $published = 'published';
+                           
         }
         if(isset($stmt1)){
             mysqli_stmt_bind_param($stmt1,"i",$post_cat_id);
             mysqli_stmt_execute($stmt1);
-     mysqli_stmt_bind_result($stmt1,$post_id,$post_author,$post_title,$post_date,$post_img,$post_content);
+     mysqli_stmt_bind_result($stmt1, $post_id, $post_author, $post_title, $post_date, $post_img, $post_content);
             $stmt = $stmt1;
             
         }else{
             
-    mysqli_stmt_bind_param($stmt2,"is",$post_cat_id,$published);
+    mysqli_stmt_bind_param($stmt2, "is", $post_cat_id,$published);
             mysqli_stmt_execute($stmt2);
-     mysqli_stmt_bind_result($stmt2,$post_id,$post_author,$post_title,$post_date,$post_img,$post_content);
+     mysqli_stmt_bind_result($stmt2,  $post_id, $post_author, $post_title, $post_date, $post_img, $post_content);
             $stmt = $stmt2;
         }
     
@@ -46,7 +46,7 @@ $stmt2 = mysqli_prepare($connection,"SELECT post_id,post_author,post_title,post_
 
     $select_post = mysqli_query($connection,$query);
         
-        if(mysqli_num_rows($stmt) === 0){
+        if(mysqli_stmt_num_rows($stmt) === 0){
             
              echo "<h5 class='text-center'>NO POST AVAILABLE</h5> ";
         }
@@ -60,7 +60,7 @@ $stmt2 = mysqli_prepare($connection,"SELECT post_id,post_author,post_title,post_
         <h2><?php echo $post_title ?></h2>
         <?php   $query = "SELECT * FROM categories WHERE cat_id='$post_cat_id'";
                     $select_categories_id = mysqli_query($connection,$query);
-                            while($row=mysqli_fetch_assoc($select_categories_id)){
+                            while($row=mysqli_stmt_fetch($stmt)){
                                 $cat_id = $row['cat_id'];
                                   $cat_title = $row['cat_title'];   
                                    }?>
