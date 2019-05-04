@@ -51,20 +51,14 @@ $stmt2 = mysqli_prepare($connection,"SELECT post_id,post_author,post_title,post_
              echo "<h5 class='text-center'>NO POST AVAILABLE</h5> ";
         }
         
+    
         
     while(mysqli_stmt_fetch($stmt)):
                                  
-              
         
         ?>
         <h2><?php echo $post_title ?></h2>
-        <?php   $query = "SELECT * FROM categories WHERE cat_id='$post_cat_id'";
-                    $select_categories_id = mysqli_query($connection,$query);
-                            while($row=mysqli_stmt_fetch($stmt)){
-                                $cat_id = $row['cat_id'];
-                                  $cat_title = $row['cat_title'];   
-                                   }?>
-    
+        
    <div class="card">
                          
                           <img class="card-img-top" src="/gen/admin/images/<?php echo $post_img; ?>" alt="" width="800px" height="450px">
@@ -83,8 +77,10 @@ $stmt2 = mysqli_prepare($connection,"SELECT post_id,post_author,post_title,post_
              
                 
                 </div>
+                
                  <?php endwhile;
-               }else{
+               
+    }else{
         
         header("Location:index.php");
     }?>
