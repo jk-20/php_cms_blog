@@ -29,6 +29,7 @@
                                   
                               }
                           }
+          mysqli_stmt_close($stmt);
                       }
                      
 }
@@ -40,11 +41,17 @@
     
     if(isset($_GET['delete'])){
                                  $cat_id = $_GET['delete'];
-                    $query = "DELETE FROM categories WHERE cat_id='$cat_id'";
-                        $delete_query = mysqli_query($connection,$query);
+        $stmt = mysqli_prepare($connection,"DELETE FROM categories WHERE cat_id= ?");
+        mysqli_stmt_bind_param($stmt , 'i',$cat_id);  
+         mysqli_stmt_execute($stmt);
+         if(!$stmt){
+                    die('query failed'.mysqli_error($connection));
+                                  
+                              }
+                       
                         header("Location: categories.php");
                                 
-                                 
+                               mysqli_stmt_close($stmt);  
                              }
 }
 
