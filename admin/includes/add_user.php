@@ -20,25 +20,25 @@
        $crypt_password = password_hash($user_password,PASSWORD_BCRYPT,[10]);
         
         
-$query = "INSERT INTO users(username,user_password,user_firstname,user_lastname,user_email,user_image,user_role)";
-$query .= "VALUES('$user_name','$crypt_password','$user_firstname','$user_lastname','$user_email','$user_image','$user_role')";
-        $create_user_query = mysqli_query($connection,$query);
+$stmt = mysqli_prepare($connection,"INSERT INTO users(username,user_password,user_firstname,user_lastname,user_email,user_image,user_role) VALUES(?,?,?,?,?,?,?) ");
+        
+mysqli_stmt_bind_param($stmt, "sssssss",$user_name,$crypt_password,$user_firstname,$user_lastname,$user_email,$user_image,$user_role);
+        
+        mysqli_stmt_execute($stmt);
         
         
-     confirm($create_user_query);
+     confirm($stmt);
+        
+        
         
 echo "<h5 class='text-success'>user created successfully.</h5>" . " " . "<a href='users.php'>view user</a>";
         
-        
+           mysqli_stmt_close($stmt);
     }
 
 
 
 ?>
-   
-
-   
-   
    
    <form action="" method="post" enctype="multipart/form-data">
     

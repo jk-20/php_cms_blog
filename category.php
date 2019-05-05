@@ -44,7 +44,7 @@ $stmt2 = mysqli_prepare($connection,"SELECT post_id,post_author,post_title,post_
     
     
 
-    $select_post = mysqli_query($connection,$query);
+   
         
         if(mysqli_stmt_num_rows($stmt) === 0){
             

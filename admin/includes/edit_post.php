@@ -4,25 +4,21 @@
      $the_post_id = escape($_GET['p_id']);
     }
 
+$stmt= mysqli_prepare($connection,"SELECT post_id,post_author,post_title,post_cat_id,post_date,post_img,post_content,post_tag,post_comment_count,post_status  FROM post WHERE post_id= ?");
+
+mysqli_stmt_bind_param($stmt, "i",$the_post_id);
+        
+        mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt, $post_id, $post_author, $post_title,$post_cat_id, $post_date, $post_img, $post_content,$post_tag,$post_comment_count,$post_status);
+
+     confirm($stmt);
+
+     while(mysqli_stmt_fetch($stmt)):
+endwhile;
+mysqli_stmt_close($stmt);
 
 
-
-    $query = "SELECT * FROM post WHERE post_id='$the_post_id'";
-    $select_post_by_id = mysqli_query($connection,$query);
-    while($row=mysqli_fetch_assoc($select_post_by_id )){
-                                 
-    $post_id = $row['post_id'];        
-    $post_author = $row['post_author'];
-    $post_title = $row['post_title'];  
-    $post_cat_id = $row['post_cat_id'];  
-    $post_date = $row['post_date'];          
-    $post_img = $row['post_img'];          
-    $post_content = $row['post_content'];          
-    $post_tag = $row['post_tag'];          
-    $post_comment_count = $row['post_comment_count'];          
-    $post_status = $row['post_status']; 
-   
-    }
+    
     
     if(isset($_POST['update_post'])){
         
