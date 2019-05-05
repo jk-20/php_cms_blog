@@ -13,22 +13,23 @@
         
         $post_tag = escape($_POST['post_tag']);
         $post_content = escape($_POST['post_content']);
-        $post_date = date('d-m-y');
+    
         $post_comment_count = 0;
         
-      
         move_uploaded_file($post_image_temp,"images/$post_image");
         
-$query = "INSERT INTO post(post_cat_id,post_title,post_author,post_date,post_img,post_content,post_tag,post_comment_count,post_status) ";
-$query .= "VALUES('$post_category_id','$post_title','$post_author',now(),'$post_image','$post_content','$post_tag','$post_comment_count','$post_status') ";
-        $create_post_query = mysqli_query($connection,$query);
+$stmt = mysqli_prepare($connection,"INSERT INTO post(post_cat_id,post_title,post_author,post_date,post_img,post_content,post_tag,post_comment_count,post_status) VALUES(?,?,?,now(),?,?,?,?,?) ");
+ 
+mysqli_stmt_bind_param($stmt, "isssssis",$post_category_id,$post_title,$post_author,$post_image,$post_content,$post_tag,$post_comment_count,$post_status);
+        
+        mysqli_stmt_execute($stmt);
         
         
-     confirm($create_post_query);
+     confirm($stmt);
         
         echo "<h5 class='text-success'>post Add succesfully</h5><a href='post.php'>view post</a>";
     
-       
+        mysqli_stmt_close($stmt);
     }
 
 
