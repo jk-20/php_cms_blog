@@ -4,21 +4,18 @@ if(isset($_GET['edit_user'])){
     
  $the_user_id = $_GET['edit_user'];
     
-    $query = "SELECT * FROM users WHERE user_id ='$the_user_id'";
-    $select_user = mysqli_query($connection,$query);
-    while($row=mysqli_fetch_assoc($select_user)){
-                                 
-    $user_id = $row['user_id'];        
-    $username = $row['username'];        
-    $user_password = $row['user_password'];        
-    $user_firstname = $row['user_firstname'];        
-    $user_lastname = $row['user_lastname'];        
-    $user_email = $row['user_email'];        
-    $user_image = $row['user_image'];        
-    $user_role = $row['user_role'];        
+$stmt = mysqli_prepare($connection,"SELECT user_id,username,user_password,user_firstname,user_lastname,user_email,user_image,user_role FROM users WHERE user_id = ? ");
+    
+    mysqli_stmt_bind_param($stmt,"i",$the_user_id);
+    mysqli_stmt_execute($stmt);
+     mysqli_stmt_bind_result($stmt, $user_id, $username, $user_password, $user_firstname, $user_lastname, $user_email, $user_image, $user_role);
+    
+ confirm($stmt);
+while(mysqli_stmt_fetch($stmt)):
+    
       
-        
-    }
+endwhile;
+mysqli_stmt_close($stmt);
     
 }
 
