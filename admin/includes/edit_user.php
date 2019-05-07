@@ -21,8 +21,6 @@ mysqli_stmt_close($stmt);
 
 
     if(isset($_POST['edit_user'])){
-       
-        
         $user_password = $_POST['user_password'];
         $user_firstname = $_POST['user_firstname'];
         $user_lastname = $_POST['user_lastname'];
@@ -36,12 +34,20 @@ mysqli_stmt_close($stmt);
         
         if(!empty($user_password)){
             
-            $query_password = "SELECT user_password FROM users WHERE user_id = '$the_user_id'";
-            $get_user_query = mysqli_query($connection,$query_password);
-            confirm($get_user_query);
+            $stmt = mysqli_prepare($connection,"SELECT user_password FROM users WHERE user_id = ? ");
+            mysqli_stmt_bind_param($stmt,'i',$the_user_id);
+             mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt,$user_password);
             
-            $row = mysqli_fetch_array($get_user_query);
-            $db_user_password = $row['user_password'];
+            confirm($stmt);
+            while(mysqli_stmt_fetch($stmt)):
+            $db_user_password = 'user_password';
+            endwhile;
+            mysqli_stmt_close($stmt);
+        
+//            
+//            $row = mysqli_fetch_array($get_user_query);
+//            $db_user_password = $row['user_password'];
         }
 
         if($db_user_password != $user_password){
@@ -53,33 +59,22 @@ mysqli_stmt_close($stmt);
 
        // move_uploaded_file($post_image_temp,"images/$post_image");
         
- $query = "UPDATE users SET ";
-        $query .="user_firstname='$user_firstname', ";
-        $query .="user_lastname='$user_lastname', ";
-        $query .="user_role='$user_role', ";
-        $query .="username='$username', ";
-        $query .="user_email='$user_email', ";
-        $query .="user_password='$user_password' ";
-       
-        $query .="WHERE user_id=' $the_user_id'";
         
-        $edit_user_query = mysqli_query($connection,$query);
-        
-           confirm($edit_user_query);
-        
+            
+$stmt = mysqli_prepare($connection,"UPDATE users 
+SET user_firstname=?,user_lastname=?,user_role=?,username=?,user_email=?,user_password=? WHERE user_id = ? ");
     
+ mysqli_stmt_bind_param($stmt,"ssssssi", $user_firstname, $user_lastname, $user_role, $username, $user_email, $user_password, $the_user_id);
+    mysqli_stmt_execute($stmt);
+//     mysqli_stmt_bind_result();
+    
+ confirm($stmt);
         
-        
-        
+        mysqli_stmt_close($stmt);
     }
 
 
-
 ?>
-   
-
-   
-   
    
    <form action="" method="post" enctype="multipart/form-data">
     

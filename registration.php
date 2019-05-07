@@ -6,6 +6,7 @@ if(isset($_POST['submit'])){
     $username = $_POST['username'];
     $email    = $_POST['email'];
     $password = $_POST['password'];
+   
     
     $username = mysqli_real_escape_string($connection,$username);
     $email = mysqli_real_escape_string($connection,$email);
@@ -23,7 +24,7 @@ if(isset($_POST['submit'])){
       $crypt_password = password_hash($password,PASSWORD_BCRYPT,[10]);
     
     $query = "INSERT INTO users(username,user_password,user_email,user_role) ";
-    $query .= "VALUES('$username','$crypt_password','$email','visitor' )";
+    $query .= "VALUES('$username','$crypt_password','$email','visitor')";
     $register_user_query = mysqli_query($connection,$query);
     if(!$register_user_query){
     
@@ -69,7 +70,7 @@ if(isset($_POST['submit'])){
                             <label for="password" class="sr-only">Password</label>
                             <input type="password" name="password" id="key" class="form-control" placeholder="Password">
                         </div>
-                
+                     
                         <input type="submit" name="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Register">
                     </form>
                  
