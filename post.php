@@ -89,44 +89,17 @@ if(!$send_query){
                <div class="card-body">
                    
                 <?php 
-                   
-                   $query = "SELECT * FROM comments WHERE comment_post_id= $the_post_id ";
-        $query .= "AND comment_status = 'approved' ";
-        $query .= "ORDER BY comment_id DESC";
-        $select_comment_query = mysqli_query($connection,$query);
-        if(!$select_comment_query){
-            die('Query failed'.mysqli_error($connection));
-        }
-        while($row=mysqli_fetch_array($select_comment_query)){
-            
-            $comment_date = $row['comment_date'];
-            $comment_content = $row['comment_content'];
-            $comment_author = $row['comment_author'];
-            $comment_time = $row['comment_time'];
-            
+           
+            show_comment();
             
             
             
                    ?>
                    
-                   <div class="card-header"><h5><i class="fas fa-user-tie"></i>
-                     <?php echo $comment_author;  ?>
-                     <small> <?php echo $comment_date ; ?></small>
-                     <small> <?php echo $comment_time ; ?></small>
-                     
-                     </h5>
-                      <i class="fas fa-comments"></i>
-                       <?php echo $comment_content; ?>
-                   </div>
+                
                    
                    
-                   
-                   <?php  } 
-                   
-                   
-    
-                   
-                   ?>
+                  
                    
                </div>
                 
@@ -189,16 +162,7 @@ if(!$send_query){
                  <br>
                    <div>
                       <img src="" alt="">
-                <div class="card">        
-              <h4>Blog</h4>
-<div class="card-body">
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form> </div>
-                     
-                       
-                </div> 
+               
                     <br>
                       <hr>
                  <?php include "includes/sidebar.php"; ?>

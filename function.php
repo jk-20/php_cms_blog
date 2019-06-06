@@ -91,20 +91,20 @@ function show_comment(){
             $comment_content = $row['comment_content'];
             $comment_author = $row['comment_author'];
             $comment_time = $row['comment_time'];
-}
 
 
-   echo " <div class='card-header'><h5><i class='fas fa-user-tie'></i>
+
+   echo " <div class='card-header'><h5><i class='fas fa-user-tie text-primary'></i>
                       $comment_author ";
-                    echo "<small>  $comment_date ; </small>"; 
+                    echo "<small>  $comment_date  </small>"; 
                     echo " <small> $comment_time </small>";
                      
                     echo "</h5>";
-                      echo "<i class='fas fa-comments'></i>";
-                       echo $comment_content ."</div>"; 
+                      echo "<i class='fas fa-comments text-success'></i>";
+                       echo  $comment_content ."</div>"; 
                    
                    
-                   
+                   }
                    
                      }
     
@@ -131,6 +131,209 @@ function login(){
 ?>
 
 
+
+
+
+<?php
+
+/******************* helper functions *******************/
+
+function clean($string){
+    return htmlentities($string);
+}
+ 
+function redirect($location){
+return header("Location: {$location}");
+     
+}
+
+function set_message($message){
+    if(!empty($message)){
+        $_SESSION['message'] = $message;
+    }else{
+        $message = "";
+    }
+}
+
+function display_message(){
+  if(isset($_SESSION['message'])){
+        echo $_SESSION['message'];
+      unset($_SESSION['message']);
+  }
+}
+
+
+function token_generator(){
+    $token = $_SESSION['token'] = md5(uniqid(mt_rand(),true));
+    return $token;
+}
+
+?>
+<?php 
+
+     /********************Form validation****/
+
+function validation_error($error_message){
+    $error_message = <<<DELIMITER
+    <div class="alert alert-danger" role="alert">$error_message</div>
+  
+DELIMITER;
+    return  $error_message;
+}
+/*************************** Validation user function *******************/
+function validate_user_registration(){
+    $error = [];
+    $min = 3;
+    $max = 20;
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+        
+  
+        $username   = clean($_POST['username']);
+        $email      = clean($_POST['email']);
+        $password   = clean($_POST['password']);
+      
+        if(email_exits($email)){
+            $error[] = "E-mail already exits try with other one";
+        }
+        
+         if(strlen($email)<$max){
+        $error[] = "E-mail should be 20 character long";
+    }
+          if(strlen($username)<$min){
+        $error[] = "Username can not be less than 3 character";
+    }
+         if(strlen($username)>$max){
+        $error[] = "Username can not be greater than 20 character";
+    }
+        if(username_exits($username)){
+            $error[] = "Username already exits try with other one";
+        }
+    if(!empty($error)){
+        foreach($error  as $error){
+            echo validation_error($error);
+        }
+    }else{
+        if(register_user($username,$email,$password)){
+        set_message("User registered successfully! check your Inbox or Spam folder to activation link ");
+            redirect("index.php");
+        }else{
+             set_message("Sorry!! we couldn't register the user");
+            redirect("index.php");
+        }
+    }
+    
+}
+    
+}
+
+
+function email_exits($email){
+    $sql = "SELECT id FROM users WHERE email = '$email'";
+    $result = query($sql);
+    if(row_count($result)==1){
+        return true;
+    }else{
+        return false;
+    }
+}
+function username_exits($username){
+    $sql = "SELECT id FROM users WHERE username = '$username'";
+    $result = query($sql);
+    if(row_count($result)==1){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+
+function send_email($email,$subject,$msg,$header){
+    
+    return mail($email,$subject,$msg,$header);
+    
+}
+/*************************** Register user function *******************/
+
+function register_user($username,$email,$password){
+    $username = escape($username);
+    $email = escape($email);
+    $password = escape($password);
+    
+    if(email_exits($email)){
+        return false;
+    }elseif(username_exits($username)){
+        return false;
+    }else{
+        
+        $password = md5($password);
+        $validation_code = md5($username + microtime());
+       
+        
+        $sql = "INSERT INTO users(username,email,password,validation,active) ";
+    $sql.= "VALUES('$username','$email','$password','$validation_code','0')";
+        
+        $result = query($sql);
+        confirm($result);
+        
+         $subject = "Activate Account";
+$msg = "please click on link below to activate account 
+http://localhost/loginsystem/activate.php?email=$email&validation=$validation_code";
+        $header = "From:noreply@nxtgenmove.com";
+        
+send_email($email,$subject,$msg,$header);
+        
+        return true;
+        
+
+        
+    }
+    
+    
+    
+}
+/*************************** activate  user function *******************/
+
+function activate_user(){
+ 
+ 
+ if($_SERVER['REQUEST_METHOD'] == "GET"){
+     if(isset($_GET['email'])){
+          $email = clean($_GET['email']);
+          $validation_code = clean($_GET['validation']);
+
+$sql= "SELECT id FROM users WHERE email= '".escape($_GET['email'])."' AND validation = '".escape($_GET['validation'])."' ";
+        $result = query($sql);
+        confirm($result);
+            
+         if(row_count($result) == 1){
+             
+             $sql2 = "UPDATE users SET active= 1 ,validation= 0 WHERE email='".escape($email)."' AND validation='".escape($validation_code)."' ";
+             $result2 = query($sql2);
+             confirm($result2);
+             set_message("<p class='text-success text-center'>Your account has been activated please login<p>");
+             redirect("login.php");
+     
+         }
+         else{
+            set_message("<p class='text-danger text-center'>Sorry!! account couldn't be active now<p>");
+             redirect("login.php");
+         }
+         
+     }
+ }
+ 
+ }
+
+
+
+
+
+
+
+?>
+ 
+ 
 
 
 

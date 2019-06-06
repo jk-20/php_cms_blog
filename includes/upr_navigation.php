@@ -32,7 +32,7 @@
         <a class="nav-link" href="/gen/contact">Contact</a>
       </li> -->
        <li class="nav-item">
-        <a class="nav-link" href="/gen/admin.php">Admin</a>
+        <a class="nav-link" href="/gen/admin">Admin</a>
       </li>
       
     </ul>

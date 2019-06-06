@@ -1,44 +1,37 @@
 
  <?php  include "includes/header.php"; ?>
 <?php
-if(isset($_POST['submit'])){
-
-    $username = $_POST['username'];
-    $email    = $_POST['email'];
-    $password = $_POST['password'];
-   
-    
-    $username = mysqli_real_escape_string($connection,$username);
-    $email = mysqli_real_escape_string($connection,$email);
-    $password = mysqli_real_escape_string($connection,$password);
-    
-//    $query = "SELECT randSalt FROM users";
-//    $select_ransalt_query = mysqli_query($connection,$query);    
-//if(!$select_ransalt_query){
+//if(isset($_POST['submit'])){
+//
+//    $username = $_POST['username'];
+//    $email    = $_POST['email'];
+//    $password = $_POST['password'];
+//   
+//    
+//    $username = mysqli_real_escape_string($connection,$username);
+//    $email = mysqli_real_escape_string($connection,$email);
+//    $password = mysqli_real_escape_string($connection,$password);
+//    
+//    
+//      $crypt_password = password_hash($password,PASSWORD_BCRYPT,[10]);
+//    
+//    $query = "INSERT INTO users(username,user_password,user_email,user_role) ";
+//    $query .= "VALUES('$username','$crypt_password','$email','visitor')";
+//    $register_user_query = mysqli_query($connection,$query);
+//    if(!$register_user_query){
 //    
 //    die("Query failed!!".mysqli_error($connection));
 //}
-        
-    //$row=mysqli_fetch_array($select_ransalt_query);
-    
-      $crypt_password = password_hash($password,PASSWORD_BCRYPT,[10]);
-    
-    $query = "INSERT INTO users(username,user_password,user_email,user_role) ";
-    $query .= "VALUES('$username','$crypt_password','$email','visitor')";
-    $register_user_query = mysqli_query($connection,$query);
-    if(!$register_user_query){
-    
-    die("Query failed!!".mysqli_error($connection));
-}
-       
-        $message = "<h5 class='text-success'>Registration submitted successfully</h5>";
-    
-     
-    
-}else{
-        $message = "";
-    }
+//       
+//        $message = "<h5 class='text-success'>Registration submitted successfully</h5>";
+//    
+//     
+//    
+//}else{
+//        $message = "";
+//    }
 
+validate_user_registration();
 
 ?>
 
@@ -57,7 +50,7 @@ if(isset($_POST['submit'])){
                 <div class="form-wrap">
                 <h1>Register</h1>
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
-                      <?php echo $message; ?>
+                      <?php //echo $message; ?>
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>
                             <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username">
