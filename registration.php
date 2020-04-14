@@ -1,37 +1,37 @@
 
  <?php  include "includes/header.php"; ?>
 <?php
-//if(isset($_POST['submit'])){
-//
-//    $username = $_POST['username'];
-//    $email    = $_POST['email'];
-//    $password = $_POST['password'];
-//   
-//    
-//    $username = mysqli_real_escape_string($connection,$username);
-//    $email = mysqli_real_escape_string($connection,$email);
-//    $password = mysqli_real_escape_string($connection,$password);
-//    
-//    
-//      $crypt_password = password_hash($password,PASSWORD_BCRYPT,[10]);
-//    
-//    $query = "INSERT INTO users(username,user_password,user_email,user_role) ";
-//    $query .= "VALUES('$username','$crypt_password','$email','visitor')";
-//    $register_user_query = mysqli_query($connection,$query);
-//    if(!$register_user_query){
-//    
-//    die("Query failed!!".mysqli_error($connection));
-//}
-//       
-//        $message = "<h5 class='text-success'>Registration submitted successfully</h5>";
-//    
-//     
-//    
-//}else{
-//        $message = "";
-//    }
+if(isset($_POST['submit'])){
 
-validate_user_registration();
+   $username = $_POST['username'];
+   $email    = $_POST['email'];
+   $password = $_POST['password'];
+  
+   
+   $username = mysqli_real_escape_string($connection,$username);
+   $email = mysqli_real_escape_string($connection,$email);
+   $password = mysqli_real_escape_string($connection,$password);
+   
+   
+     $crypt_password = password_hash($password,PASSWORD_BCRYPT,[10]);
+   
+   $query = "INSERT INTO users(username,user_password,user_email,user_role) ";
+   $query .= "VALUES('$username','$crypt_password','$email','visitor')";
+   $register_user_query = mysqli_query($connection,$query);
+   if(!$register_user_query){
+   
+   die("Query failed!!".mysqli_error($connection));
+}
+      
+       $message = "<h5 class='text-success'>Registration submitted successfully</h5>";
+   
+    
+   
+}else{
+       $message = "";
+   }
+
+
 
 ?>
 

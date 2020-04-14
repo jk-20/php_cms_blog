@@ -3,13 +3,14 @@
 
              <!-- upper navigation bar starting -->
               
-              <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <nav class="navbar  navbar-expand-lg navbar-light bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-    <a class="navbar-brand" href="#"><img  src="../images/finalLogo.PNG" alt="" height="65px" width="150px"></a>
-    <img  src="images/finalLogo.PNG" alt="" height="65px" width="150px">
+  <h3><span class="text-primary">simple</span><span class="text-danger">blog</span><span class="text-success">system</span></h3>
+    <!-- <a class="navbar-brand" href="#"><img  src="../images/finalLogo.PNG" alt="" height="65px" width="150px"></a> -->
+    <!-- <img  src="images/finalLogo.PNG" alt="" height="65px" width="150px"> -->
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
         <a class="nav-link" href="/gen/">HOME <span class="sr-only">(current)</span></a>
