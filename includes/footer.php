@@ -12,7 +12,7 @@
               <footer class="mbr-small-footer mbr-section mbr-section-nopadding" id="footer1-2p" >
     
     <div class="container">
-        <p class="text-sm-center">Copyright (c) 2018 <!--NxtGenMove.com--> - All Rights Reserved | Developed BY JOGINDRA KUMAR <a href="license.txt" class="text-white">License</a></p>
+        <p class="text-sm-center">Copyright (c) 2018 <!--NxtGenMove.com--> - All Rights Reserved | Developed BY<a href="http://www.jk20.online"> JK</a> <a href="license.txt" class="text-white">License</a></p>
     </div>
 </footer>
 

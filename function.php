@@ -107,7 +107,7 @@ function login(){
     
     if(isset($_SESSION['user_role'])){
     if($_SESSION['user_role'] !=='admin'){
-        header("Location: /gen/");
+        header("Location: /nxtgenmove/");
     }else{
         header("Location: ../admin/");
     }

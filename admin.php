@@ -2,7 +2,6 @@
 
 
 <?php include "includes/header.php";?>
-<?php include "includes/upr_navigation.php";?>
 <br>
 
 

@@ -88,7 +88,7 @@
                                   $cat_title = $row['cat_title'];  
                                    ?>
       <li class="nav-item">
-        <a class="nav-link" href="category/<?php echo $cat_id ; ?>"><?php echo $cat_title; ?></a>
+        <a class="nav-link" href="../category/<?php echo $cat_id ; ?>"><?php echo $cat_title; ?></a>
       </li>
       <?php } ?>
       

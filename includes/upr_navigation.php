@@ -8,12 +8,12 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-  <h3><span class="text-primary">simple</span><span class="text-danger">blog</span><span class="text-success">system</span></h3>
+  <h3><span class="text-primary">Nxt</span><span class="text-danger">Gen</span><span class="text-success">Move</span></h3>
     <!-- <a class="navbar-brand" href="#"><img  src="../images/finalLogo.PNG" alt="" height="65px" width="150px"></a> -->
     <!-- <img  src="images/finalLogo.PNG" alt="" height="65px" width="150px"> -->
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="/gen/">HOME <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/index/">HOME <span class="sr-only">(current)</span></a>
       </li>
     <?php   $query = "SELECT * FROM categories ";
        global $connection;
@@ -23,7 +23,7 @@
                                   $cat_title = $row['cat_title'];  
                                    ?>
     <li class="nav-item">
-    <a class="nav-link" href="/gen/category/<?php echo $cat_id ; ?>"><?php echo $cat_title; ?></a>
+    <a class="nav-link" href="category/<?php echo $cat_id ; ?>"><?php echo $cat_title; ?></a>
       </li>
       <?php } ?>
       <!-- <li class="nav-item">
@@ -33,7 +33,7 @@
         <a class="nav-link" href="/gen/contact">Contact</a>
       </li> -->
        <li class="nav-item">
-        <a class="nav-link" href="/gen/admin">Admin</a>
+        <a class="nav-link" href="/nxtgenmove/admin">Admin</a>
       </li>
       
     </ul>

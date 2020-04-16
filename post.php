@@ -1,16 +1,10 @@
 
- <?php include "includes/header.php"?>
-           
-
+<?php include "includes/cat_header.php" ;?>
+        
            
  
         
-        <div class="container-fluid">
-           <?php include "includes/upr_navigation.php"?>
-            <div class="row">  
-              
-          <div class="col-sm-8 col-xs-8">
-                <br>
+        
                 <?php 
     if(isset($_GET['p_id'])){
         
@@ -53,14 +47,58 @@ if(!$send_query){
     $post_status = $row['post_status'];          
         
         ?>
- <h2><a href="post/<?php echo $post_id ?>"><?php echo $post_title ?></a></h2>
+ <!-- <h2><a href="post/<?php echo $post_id; ?>"><?php echo $post_title; ?></a></h2> -->
         <?php   $query = "SELECT * FROM categories WHERE cat_id='$post_cat_id'";
                     $select_categories_id = mysqli_query($connection,$query);
                             while($row=mysqli_fetch_assoc($select_categories_id)){
                                 $cat_id = $row['cat_id'];
                                   $cat_title = $row['cat_title'];   
                                    }?>
+
+
+
+
+
+<div class="container">
+        <div class="row justify-content-md-center">
+        
+       
+    <img src="../images/<?php echo $post_img ;?>" alt="" class="d-block w-50 img-thumbnailimg-thumbnail"> 
+
+        </div>
+    </div>
     
+    <br>
+    <hr>
+    <h3 class="text-center text-primary"><?php echo $post_title;?>
+    <p style="font-size:12px;"><?php echo $post_date; ?></p> </h3>
+    
+    <hr>
+    <br>
+    <div class="container">
+        <div class="row">
+           
+               
+                  <div class="col-sm-12">
+                  
+                    
+                  <p>
+                      <?php echo $post_content; ?>
+                  </p>
+                   
+                   
+                      
+                   </div>
+                  
+                 
+        
+    
+    
+    </div>
+                                 
+    </div>
+
+<!--     
    <div class="card">
                           <img class="card-img-top" src="/gen/admin/images/<?php echo $post_img; ?>" alt="" width="800px" height="450px">
                
@@ -73,100 +111,29 @@ if(!$send_query){
         
         
         
-            </div>
-           
-                
-            </div>
+          
     <?php } }
         
     }else{
-        header("Location: /gen/");
+        header("Location:index");
     } ?>
              <br>
             
             
-            <div class="card">
-               <div class="card-body">
-                   
-                <?php 
            
-            show_comment();
-            
-            
-            
-                   ?>
-                   
                 
                    
                    
                   
-                   
-               </div>
+           
                 
              
              
            
               
              
-                
-                </div>
-                 <?php// } ?>
-                   <!-- form for comments -->
-                   <?php 
-         create_comment_form();
-              
-              
-              
-              
-              
-              ?>
-                   
-                   
-             
-           <div class="card-body">
-               <h5 class="">comments below</h5>
-   
-   <form action="" method="post" enctype="multipart/form-data">
-  
-     <div class="form-group">
-        <label for="">Name</label>
-        <input type="text" class="form-control" name="comment_author">
-    </div>
-     <div class="form-group">
-        <label for="">Email</label>
-        <input type="email" class="form-control" name="comment_email">
-    </div>
-
-    <div class="form-group">
-        
-        <label for="">Comments</label>
-        <textarea type="text" class="form-control" name="comment_content" id="editor" cols="30" row="10"></textarea>
-        
-    </div>
-  <div class="form-group">
-        
-        
-        <input class="btn btn-primary" type="submit"  name="create_comment" value="send">
-        
-    </div>
-
-</form>  
-               
-           </div>
-                
-               </div>
                
                
-               
-               <div class="col-sm-4 col-xs-4">
-                 <br>
-                   <div>
-                      <img src="" alt="">
-               
-                    <br>
-                      <hr>
-                 <?php include "includes/sidebar.php"; ?>
-               </div>
               
                
                
@@ -179,10 +146,24 @@ if(!$send_query){
                        
                        
                        <!-- main row ending here -->
-                       </div>
+                 
                 
-         <!--   main container ending here  -->                                 
-    </div>
+         <!--   main container ending here  -->   
+         <br>                              
+         <br>                              
+         <br>                              
+         <br>                              
+         <br>                              
+         <br>                              
+         <br>                              
+         <br>                              
+         <br>                              
+         <br>                              
+         <br>                              
+         <br>                              
+         <br>                              
+         <br>                              
+
          <?php include "includes/footer.php"?>
 
            
